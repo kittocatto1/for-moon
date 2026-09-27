@@ -15,13 +15,13 @@
    ────────────────────────────────────────────────────────────────────── */
 
 export const birthdayData = {
-  name: "Moon",
+  name: "Moonaou",
 
   // How you sign the letter.
-  from: "YOUR_NAME_HERE",
+  from: "Alisha",
 
   message: `
-YOUR_BIRTHDAY_MESSAGE_HERE
+Happy birthday chandu 
 `,
 
   finalMessage: `
@@ -35,23 +35,27 @@ FINAL_MESSAGE_HERE
      A missing photo shows a soft placeholder instead of breaking.
      `alt` is optional (it describes the photo for screen readers). */
   memories: [
-    { image: "photos/photo1.jpg", caption: "CAPTION_1", alt: "PHOTO_1" },
-    { image: "photos/photo2.jpg", caption: "CAPTION_2", alt: "PHOTO_2" },
-    { image: "photos/photo3.jpg", caption: "CAPTION_3", alt: "PHOTO_3" },
-    { image: "photos/photo4.jpg", caption: "CAPTION_4", alt: "PHOTO_4" },
-    { image: "photos/photo5.jpg", caption: "CAPTION_5", alt: "PHOTO_5" },
-    { image: "photos/photo6.jpg", caption: "CAPTION_6", alt: "PHOTO_6" },
+    { image: "photos/1.jpg", caption: "CAPTION_1", alt: "PHOTO_1" },
+    { image: "photos/2.jpg", caption: "CAPTION_2", alt: "PHOTO_2" },
+    { image: "photos/3.jpg", caption: "CAPTION_3", alt: "PHOTO_3" },
+    { image: "photos/4.jpg", caption: "CAPTION_4", alt: "PHOTO_4" },
+    { image: "photos/5.jpg", caption: "CAPTION_5", alt: "PHOTO_5" },
+    { image: "photos/6.jpg", caption: "CAPTION_6", alt: "PHOTO_6" },
+    { image: "photos/7.jpg", caption: "CAPTION_6", alt: "PHOTO_6" },
+    { image: "photos/8.jpg", caption: "CAPTION_6", alt: "PHOTO_6" },
+    { image: "photos/9.jpg", caption: "CAPTION_6", alt: "PHOTO_6" },
+
   ],
 
   // Revealed when she taps the full moon on the last screen 3 times.
-  easterEgg: "EASTER_EGG_TEXT_HERE",
+  easterEgg: "Love you mwah",
 
   candles: 5,
 
   // Small interface text. Optional to change.
   text: {
     opening: "i didnt forget hihi",
-    openingButton: "okay click",
+    openingButton: "click here now",
 
     revealLine: "Happy Birthday,",
     revealNext: "there's more",
