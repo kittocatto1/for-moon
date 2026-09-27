@@ -6,7 +6,7 @@ import "./BirthdayReveal.css";
 
 export default function BirthdayReveal({ onNext }) {
   const { name, text } = birthdayData;
-  const letters = Array.from(`${name} (˶ᵔ ᵕ ᵔ˶)`);
+  const letters = Array.from(`${name} ^__^`);
   const nameStart = 1.5;
 
   return (

@@ -33,6 +33,7 @@ export default function Cake({ onNext }) {
   const [micError, setMicError] = useState(false);
   const pressing = useRef(false);
   const mic = useRef(null);
+  const svgRef = useRef(null);
 
   const litCount = lit.filter(Boolean).length;
   const allOut = litCount === 0;
@@ -66,50 +67,83 @@ export default function Cake({ onNext }) {
     });
   }, []);
 
+  const setBreeze = (v) => svgRef.current?.style.setProperty("--breeze", v.toFixed(2));
+
   const stopMic = useCallback(() => {
     const m = mic.current;
     if (!m) return;
     cancelAnimationFrame(m.raf);
-    m.stream.getTracks().forEach((t) => t.stop());
-    m.ctx.close?.();
+    m.stream?.getTracks().forEach((t) => t.stop());
+    m.ctx.close?.().catch(() => {});
     mic.current = null;
+    svgRef.current?.style.setProperty("--breeze", "0");
     setListening(false);
   }, []);
 
   const startMic = async () => {
-    if (listening) return stopMic();
+    if (mic.current) return stopMic();
+
+    // Create + resume the audio context inside the tap itself; mobile browsers
+    // keep it suspended (silent) if this happens after the permission prompt.
+    const AC = window.AudioContext || window.webkitAudioContext;
+    const ctx = new AC();
+    ctx.resume?.().catch(() => {});
+    mic.current = { ctx, raf: 0 };
+
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
         audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false },
       });
-      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      if (!mic.current) {
+        stream.getTracks().forEach((t) => t.stop());
+        return;
+      }
+      if (ctx.state !== "running") await ctx.resume();
+
+      const source = ctx.createMediaStreamSource(stream);
       const analyser = ctx.createAnalyser();
-      analyser.fftSize = 512;
-      ctx.createMediaStreamSource(stream).connect(analyser);
+      analyser.fftSize = 1024;
+      source.connect(analyser);
       const data = new Uint8Array(analyser.fftSize);
+
+      // Listen to the room for a moment, then treat anything clearly louder as a blow.
+      const started = performance.now();
+      let floor = 0;
       let loud = 0;
       let last = 0;
+
       const tick = (t) => {
         if (!mic.current) return;
         analyser.getByteTimeDomainData(data);
         let sum = 0;
-        for (const v of data) sum += ((v - 128) / 128) ** 2;
+        for (let i = 0; i < data.length; i++) sum += ((data[i] - 128) / 128) ** 2;
         const rms = Math.sqrt(sum / data.length);
-        if (rms > 0.14) {
-          loud++;
-          if (loud > 4 && t - last > 200) {
-            blowRandom();
-            last = t;
-          }
+
+        if (t - started < 500) {
+          floor = Math.max(floor, rms);
         } else {
-          loud = Math.max(0, loud - 1);
+          const threshold = Math.min(0.12, Math.max(0.025, floor * 2.5));
+          setBreeze(Math.min(1, rms / (threshold * 2)));
+          if (rms > threshold) {
+            loud++;
+            if (loud > 3 && t - last > 180) {
+              blowRandom();
+              last = t;
+            }
+          } else {
+            loud = Math.max(0, loud - 1);
+          }
         }
         mic.current.raf = requestAnimationFrame(tick);
       };
-      mic.current = { stream, ctx, raf: requestAnimationFrame(tick) };
+
+      // keep the source referenced so it isn't garbage-collected mid-blow
+      mic.current = { ctx, stream, source, analyser, raf: requestAnimationFrame(tick) };
       setListening(true);
       setMicError(false);
     } catch {
+      mic.current = null;
+      ctx.close?.().catch(() => {});
       setMicError(true);
     }
   };
@@ -147,6 +181,7 @@ export default function Cake({ onNext }) {
       </p>
 
       <svg
+        ref={svgRef}
         className="cake__svg"
         viewBox="0 0 320 290"
         role="group"
@@ -256,12 +291,14 @@ export default function Cake({ onNext }) {
 
             <g className="flame">
               <circle cx={c.x} cy={c.top - 14} r="22" fill="url(#halo)" />
-              <g className="flame__shape" style={{ animationDelay: `${i * -0.37}s` }}>
-                <path
-                  d={`M${c.x} ${c.top - 3} C${c.x + 6} ${c.top - 3} ${c.x + 5} ${c.top - 14} ${c.x} ${c.top - 23} C${c.x - 5} ${c.top - 14} ${c.x - 6} ${c.top - 3} ${c.x} ${c.top - 3} Z`}
-                  fill="url(#flame)"
-                />
-                <ellipse cx={c.x} cy={c.top - 6.5} rx="1.8" ry="2.6" fill="rgba(150,168,230,0.55)" />
+              <g className="flame__lean">
+                <g className="flame__shape" style={{ animationDelay: `${i * -0.37}s` }}>
+                  <path
+                    d={`M${c.x} ${c.top - 3} C${c.x + 6} ${c.top - 3} ${c.x + 5} ${c.top - 14} ${c.x} ${c.top - 23} C${c.x - 5} ${c.top - 14} ${c.x - 6} ${c.top - 3} ${c.x} ${c.top - 3} Z`}
+                    fill="url(#flame)"
+                  />
+                  <ellipse cx={c.x} cy={c.top - 6.5} rx="1.8" ry="2.6" fill="rgba(150,168,230,0.55)" />
+                </g>
               </g>
             </g>
 

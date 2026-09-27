@@ -54,6 +54,14 @@
   transform: scale(0.2) translateY(6px);
 }
 
+/* flames lean away while she's blowing into the mic */
+.flame__lean {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  transform: skewX(calc(var(--breeze, 0) * -22deg)) scaleY(calc(1 - var(--breeze, 0) * 0.3));
+  transition: transform 0.12s linear;
+}
+
 .flame__shape {
   transform-box: fill-box;
   transform-origin: 50% 100%;
