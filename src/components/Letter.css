@@ -1,0 +1,98 @@
+.letter-wrap {
+  padding-top: 110px;
+}
+
+.letter-stack {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+}
+
+.letter {
+  position: relative;
+  padding: clamp(36px, 8vw, 64px) clamp(24px, 7vw, 60px) clamp(40px, 8vw, 60px);
+  color: var(--ink);
+  background:
+    radial-gradient(120% 60% at 50% -10%, rgba(255, 255, 255, 0.55), transparent 60%),
+    var(--paper);
+  border-radius: 3px;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.4) inset,
+    0 30px 60px -20px rgba(0, 0, 0, 0.55),
+    0 0 90px rgba(236, 232, 220, 0.07);
+}
+
+/* a second sheet peeking out underneath */
+.letter__under {
+  position: absolute;
+  inset: 0;
+  background: #d9d4c8;
+  border-radius: 3px;
+  transform: rotate(1.6deg) translate(6px, 6px);
+  box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.5);
+}
+
+/* paper tooth */
+.letter::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 3px;
+  pointer-events: none;
+  opacity: 0.35;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 0.55 0 0 0 0 0.52 0 0 0 0 0.45 0 0 0 0.35 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E");
+}
+
+.letter__stamp {
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 62px;
+  /* perforated edge: holes everywhere, then a solid face covers the middle */
+  background: radial-gradient(circle, var(--paper) 2.4px, #23264a 2.9px) -4px -4px / 8px 8px;
+  transform: rotate(4deg);
+  opacity: 0.9;
+}
+
+.letter__stamp::before {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  background: #23264a;
+}
+
+.letter__stamp svg {
+  position: relative;
+}
+
+.letter__greeting {
+  margin: 0 0 22px;
+  font-family: var(--hand);
+  font-size: clamp(32px, 8vw, 40px);
+  line-height: 1;
+  color: #2e3150;
+}
+
+.letter__body p {
+  margin: 0 0 1.15em;
+  font-family: var(--serif);
+  font-size: clamp(17px, 4.4vw, 19px);
+  line-height: 1.8;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
+.letter__sign {
+  margin: 34px 0 0;
+  text-align: right;
+  font-family: var(--hand);
+  font-size: 28px;
+  line-height: 1.2;
+  color: #2e3150;
+  overflow-wrap: anywhere;
+}

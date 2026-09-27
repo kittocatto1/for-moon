@@ -1,0 +1,116 @@
+.flowers {
+  text-align: center;
+}
+
+.flowers__title {
+  max-width: 14em;
+}
+
+.flowers__svg {
+  width: min(100%, 440px);
+  height: auto;
+  margin-top: 16px;
+  overflow: visible;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.flower {
+  cursor: pointer;
+  outline: none;
+}
+
+.flower--open {
+  cursor: default;
+}
+
+.flower:focus-visible .flower__hit {
+  stroke: var(--silver);
+  stroke-width: 0.8;
+  stroke-dasharray: 2 3;
+}
+
+.flower__halo {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: breathe 4.5s ease-in-out infinite alternate;
+  transition: opacity 0.8s var(--ease);
+}
+
+.flower--open .flower__halo {
+  opacity: 0;
+  animation: none;
+}
+
+@keyframes breathe {
+  from { opacity: 0.4; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1.08); }
+}
+
+/* Petals rotate around the flower's centre (the local 0,0). */
+.petal {
+  transform-origin: 0 0;
+  transform: rotate(var(--c)) scale(0.46, 0.72);
+  transition: transform 1.3s var(--ease) var(--d);
+}
+
+.flower--open .petal {
+  transform: rotate(var(--a)) scale(1);
+}
+
+.flower:not(.flower--open):hover .petal {
+  transform: rotate(var(--c)) scale(0.5, 0.76);
+  transition-duration: 0.5s;
+  transition-delay: 0s;
+}
+
+.sepal {
+  transform-origin: 0 0;
+  transition: transform 1.2s var(--ease);
+}
+
+.flower--open .sepal {
+  transform: rotate(calc(var(--s) * 115deg)) scale(0.9);
+}
+
+.flower__center {
+  transform-origin: 0 0;
+  transform: scale(0);
+  transition: transform 0.8s var(--ease) 0.7s;
+}
+
+.flower--open .flower__center {
+  transform: scale(1);
+}
+
+.flower__sparkle {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.flower--open .flower__sparkle {
+  animation: sparkle 1.6s var(--ease) 0.9s 1;
+}
+
+@keyframes sparkle {
+  0% { opacity: 0; }
+  40% { opacity: 0.9; }
+  100% { opacity: 0; }
+}
+
+.flowers__after {
+  min-height: 48px;
+  margin-top: 10px;
+}
+
+.flowers__done {
+  margin: 0;
+  font-family: var(--serif-display);
+  font-style: italic;
+  font-size: 28px;
+  color: var(--moon);
+}
+
+.flowers .next {
+  margin-top: 24px;
+}

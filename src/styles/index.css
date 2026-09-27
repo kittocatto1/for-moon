@@ -1,0 +1,188 @@
+:root {
+  --night: #0b0d1a;
+  --night-2: #11142a;
+  --dusk: #1b1f3d;
+  --moon: #ece8dc;
+  --silver: #c3c5d3;
+  --muted: #9296b0;
+  --faint: #5d6182;
+  --lavender: #a9a6d4;
+  --warm: #e9c894;
+  --paper: #efeadf;
+  --ink: #23253a;
+
+  --serif-display: "Cormorant Garamond", "Iowan Old Style", Georgia, serif;
+  --serif: "EB Garamond", "Iowan Old Style", Georgia, serif;
+  --hand: "Caveat", "Segoe Print", cursive;
+
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --gutter: clamp(20px, 5vw, 48px);
+
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  background: var(--night);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100svh;
+  background: var(--night);
+  color: var(--moon);
+  font-family: var(--serif);
+  font-size: 18px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  overflow-x: hidden;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 1.5px solid var(--silver);
+  outline-offset: 4px;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Chapter shell ─────────────────────────────────────────────────── */
+
+.chapter {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 96px var(--gutter) 72px;
+}
+
+.chapter--top {
+  justify-content: flex-start;
+}
+
+.eyebrow {
+  font-family: var(--serif);
+  font-size: 13px;
+  letter-spacing: 0.28em;
+  text-transform: lowercase;
+  color: var(--muted);
+  margin: 0 0 12px;
+}
+
+.title {
+  font-family: var(--serif-display);
+  font-weight: 300;
+  font-style: italic;
+  font-size: clamp(30px, 7vw, 46px);
+  line-height: 1.15;
+  margin: 0;
+  text-align: center;
+  color: var(--moon);
+}
+
+.hint {
+  font-family: var(--hand);
+  font-size: 21px;
+  color: var(--muted);
+  margin: 10px 0 0;
+  text-align: center;
+}
+
+/* The one button style used everywhere: a quiet text link with a tiny moon. */
+.next {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 56px;
+  padding: 12px 18px;
+  min-height: 44px;
+  font-family: var(--serif-display);
+  font-style: italic;
+  font-size: 21px;
+  color: var(--silver);
+  border-radius: 999px;
+  transition: color 0.4s var(--ease), background-color 0.4s var(--ease);
+}
+
+.next::after {
+  content: "";
+  width: 22px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
+  transition: width 0.4s var(--ease);
+}
+
+.next:hover,
+.next:focus-visible {
+  color: var(--moon);
+  background: rgba(236, 232, 220, 0.05);
+}
+
+.next:hover::after,
+.next:focus-visible::after {
+  width: 34px;
+}
+
+.small-button {
+  font-family: var(--serif);
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  padding: 10px 14px;
+  min-height: 44px;
+  border-radius: 999px;
+  border: 1px solid rgba(195, 197, 211, 0.18);
+  transition: color 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+
+.small-button:hover,
+.small-button:focus-visible {
+  color: var(--moon);
+  border-color: rgba(195, 197, 211, 0.45);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

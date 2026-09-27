@@ -1,0 +1,47 @@
+.phases {
+  position: fixed;
+  top: max(14px, env(safe-area-inset-top));
+  left: 0;
+  right: 0;
+  z-index: 20;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.phases ol {
+  display: flex;
+  gap: 2px;
+  margin: 0;
+  padding: 4px 8px;
+  list-style: none;
+  pointer-events: auto;
+  border-radius: 999px;
+  background: rgba(11, 13, 26, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.phase {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  opacity: 0.45;
+  transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
+}
+
+.phase:not(:disabled):hover {
+  opacity: 0.85;
+}
+
+.phase:disabled {
+  opacity: 0.18;
+  cursor: default;
+}
+
+.phase--current {
+  opacity: 1;
+  transform: scale(1.15);
+}

@@ -1,0 +1,61 @@
+.reveal {
+  text-align: center;
+  overflow: hidden;
+}
+
+.reveal__moon {
+  margin-bottom: 28px;
+}
+
+.reveal__title {
+  margin: 0;
+  font-weight: 300;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.reveal__line {
+  font-family: var(--serif-display);
+  font-style: italic;
+  font-size: clamp(24px, 6vw, 34px);
+  color: var(--silver);
+}
+
+.reveal__name {
+  font-family: var(--serif-display);
+  font-weight: 300;
+  font-size: clamp(64px, 20vw, 128px);
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: var(--moon);
+  text-shadow: 0 0 40px rgba(236, 232, 220, 0.18);
+}
+
+.reveal__name span {
+  display: inline-block;
+}
+
+.shooting-star {
+  position: absolute;
+  top: 18%;
+  left: 62%;
+  width: 90px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(236, 232, 220, 0.9), transparent);
+  transform: rotate(-24deg) translateX(0);
+  opacity: 0;
+  animation: shoot 1.3s var(--ease) 4.2s 1 forwards;
+  pointer-events: none;
+}
+
+@keyframes shoot {
+  0% { opacity: 0; transform: rotate(-24deg) translateX(0); }
+  15% { opacity: 1; }
+  100% { opacity: 0; transform: rotate(-24deg) translateX(-240px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shooting-star { display: none; }
+}

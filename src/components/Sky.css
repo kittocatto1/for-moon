@@ -1,0 +1,61 @@
+.sky {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 70% at 50% 110%, rgba(52, 56, 104, 0.35), transparent 60%),
+    linear-gradient(180deg, var(--night) 0%, var(--night-2) 60%, #15183200 100%),
+    var(--night);
+  transition: opacity 1.6s var(--ease);
+}
+
+.sky__moonlight {
+  position: absolute;
+  top: -20vmax;
+  right: -18vmax;
+  width: 60vmax;
+  height: 60vmax;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(236, 232, 220, 0.07), transparent 62%);
+  transition: opacity 1.6s var(--ease);
+}
+
+.sky__stars {
+  position: absolute;
+  inset: -4% 0;
+  transition: opacity 1.6s var(--ease);
+}
+
+.sky--dim .sky__stars {
+  opacity: 0.55;
+}
+
+.sky--dim .sky__moonlight {
+  opacity: 0.4;
+}
+
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--moon);
+  opacity: var(--o);
+}
+
+.star--twinkle {
+  animation: twinkle ease-in-out infinite alternate;
+}
+
+@keyframes twinkle {
+  from { opacity: var(--o); }
+  to { opacity: calc(var(--o) * 0.25); }
+}
+
+/* A barely-there film grain so the dark isn't flat and digital. */
+.sky__grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
