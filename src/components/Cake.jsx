@@ -181,8 +181,8 @@ export default function Cake({ onNext }) {
             <stop offset="1" stopColor="rgba(233,200,148,0)" />
           </radialGradient>
           <pattern id="stripes" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(35)">
-            <rect width="7" height="7" fill="#e4e5ef" />
-            <rect width="2.4" height="7" fill="#a9a6d4" />
+            <rect width="7" height="7" fill="#f4f0e2" />
+            <rect width="2.4" height="7" fill="#e8cf7e" />
           </pattern>
           <mask id="crescentCut">
             <rect x="140" y="194" width="40" height="40" fill="white" />
@@ -212,11 +212,11 @@ export default function Cake({ onNext }) {
           <path d="M52 178 L52 246 A108 16 0 0 0 268 246 L268 178 Z" fill="url(#cakeSide)" />
           <ellipse cx="160" cy="178" rx="108" ry="16" fill="#f2eee5" />
           {/* crescent + tiny stars on the front */}
-          <circle cx="158" cy="214" r="12" fill="#a9a6d4" mask="url(#crescentCut)" />
-          <circle cx="128" cy="206" r="1.6" fill="#a9a6d4" />
-          <circle cx="192" cy="224" r="1.3" fill="#a9a6d4" />
-          <circle cx="186" cy="202" r="1" fill="#a9a6d4" />
-          <circle cx="118" cy="226" r="1" fill="#a9a6d4" />
+          <circle cx="158" cy="214" r="12" fill="#d9bc68" mask="url(#crescentCut)" />
+          <circle cx="128" cy="206" r="1.6" fill="#d9bc68" />
+          <circle cx="192" cy="224" r="1.3" fill="#d9bc68" />
+          <circle cx="186" cy="202" r="1" fill="#d9bc68" />
+          <circle cx="118" cy="226" r="1" fill="#d9bc68" />
           {/* pearls */}
           {Array.from({ length: 17 }, (_, i) => {
             const x = 62 + i * 12.25;
@@ -227,7 +227,7 @@ export default function Cake({ onNext }) {
           {/* top tier */}
           <path d="M90 120 L90 178 A70 11 0 0 0 230 178 L230 120 Z" fill="url(#cakeSide)" />
           <ellipse cx="160" cy="120" rx="70" ry="11" fill="#f2eee5" />
-          <path d={glazePath(160, 120, 70, 11)} fill="#bebbdd" />
+          <path d={glazePath(160, 120, 70, 11)} fill="#f2dd9c" />
           <ellipse cx="148" cy="116" rx="40" ry="4" fill="rgba(255,255,255,0.18)" />
         </g>
 

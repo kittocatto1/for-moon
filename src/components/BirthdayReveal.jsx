@@ -6,7 +6,7 @@ import "./BirthdayReveal.css";
 
 export default function BirthdayReveal({ onNext }) {
   const { name, text } = birthdayData;
-  const letters = Array.from(`${name} :)`);
+  const letters = Array.from(`${name} (˶ᵔ ᵕ ᵔ˶)`);
   const nameStart = 1.5;
 
   return (
@@ -29,7 +29,7 @@ export default function BirthdayReveal({ onNext }) {
         >
           {text.revealLine}
         </motion.span>
-        <span className="reveal__name" aria-label={`${name} :)`}>
+        <span className="reveal__name" aria-label={`${name} <3 `}>
           {letters.map((ch, i) => (
             <motion.span
               key={i}
